@@ -7,8 +7,13 @@ const morgan = require("morgan");
 
 dotenv.config();
 
+const username = encodeURIComponent(process.env.MONGO_USER);
+const password = encodeURIComponent(process.env.MONGO_PASSWORD);
+const mongoCluster = process.env.MONGO_CLUSTER;
+
+mongoose.set("strictQuery", true);
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(`mongodb+srv://${username}:${password}@${mongoCluster}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
